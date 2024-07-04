@@ -192,19 +192,18 @@ function doMath(stack) {
             break;
     }
 
+    stack.push(result);
+
     if (leftover_operator !== "=") {
         stack.push(leftover_operator);
     } else {
         stack.push(operator);
     }
 
-    // result = result.toFixed(4);
-    stack.push(result);
-    return stack[0].toString();
+    return result.toString();
 }
 
 function addNumberToCurrentString(current_value, value) {
-    console.log("CURRENT VALUE IS", current_value);
     if (current_value.length === 9) {
         displayErrorMessage(true, "Number exceeds more than 9 characters!");
         return current_value;
@@ -215,6 +214,10 @@ function addNumberToCurrentString(current_value, value) {
 }
 
 function display(current_value) {
+    if (current_value.length > 10) {
+        displayErrorMessage(true, "Value is too big! Does not fit in display.");
+        return;
+    }
     const resultDiv = document.querySelector(".result");
     resultDiv.textContent = current_value;
 }
@@ -254,11 +257,13 @@ cols.forEach((col) => {
                 case "AC":
                     current_value = clear();
                     stack.splice(0, stack.length);
+                    current_value = "0";
                     break;
                 case "C":
                     current_value = clear();
                     col.textContent = "AC";
                     stack.splice(0, stack.length);
+                    current_value = "0";
                     break;
                 case "+/-":
                     current_value = makeNumNegative(current_value);
@@ -270,6 +275,11 @@ cols.forEach((col) => {
                     if (!current_value.includes(".")) {
                         current_value = current_value.concat(".");
                     }
+                    break;
+                case "=":
+                    stack.push(parseFloat(current_value));
+                    stack.push(operator);
+                    current_value = doMath(stack);
                     break;
                 default:
                     if (currentOperatorElement && currentOperatorElement !== col) {
@@ -284,9 +294,6 @@ cols.forEach((col) => {
                             stack.pop();
                             stack.pop();
                         }
-                        // math_operator = operator;
-                        // stack.push(parseFloat(current_value));
-                        // stack.push(math_operator);
                     }
                     math_operator = operator;
                     stack.push(parseFloat(current_value));
@@ -313,8 +320,6 @@ cols.forEach((col) => {
         }
 
         display(current_value);
-        console.log(stack);
+        console.log("CURRENT STACK:", stack);
     });
 });
-
-// reflect current_value changes to document
