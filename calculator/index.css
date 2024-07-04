@@ -164,15 +164,15 @@ ul.menu li {
     background-color: #ffb347;
 }
 
-/* change mode css */
-.mode {
+/* change mode css -> functionality wise, just toggles visibility */
+#mode {
     margin-top: 20px;
     font-family: "Poppins", sans-serif;
     font-size: 16px;
     max-width: 400px;
 }
 
-.mode-btn {
+#toggleVisibility-btn {
     background: none;
     border: none;
     text-decoration: none;
@@ -185,4 +185,8 @@ ul.menu li {
     color: #4b82ff;
     text-decoration: underline;
     cursor: pointer;
+}
+
+.hidden {
+    display: none;
 }

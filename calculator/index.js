@@ -1,16 +1,23 @@
-let mode = 0;
+let mode = 0; // if mode == 0, show visual
 
-function switchModes() {
-    switch (mode) {
-        case mode === 0:
-            break;
-        case mode === 1:
-            break;
-        case mode === 2:
-            break;
-        default:
-            mode = 0;
+function toggleVisibility() {
+    let newText = "";
+    if (mode) {
+        newText = "Want to just enter a math expression?";
+    } else {
+        newText = "Want to go into visual mode?";
     }
+    mode = !mode;
+
+    const toggleDiv = document.getElementById("mode");
+    const button = document.getElementById("toggleVisibility-btn");
+    toggleDiv.innerHTML = `${newText} `;
+    toggleDiv.appendChild(button);
+
+    let divToHide = document.querySelector(".calculator-visual");
+    divToHide.classList.toggle("hidden");
+    divToHide = document.querySelector(".calculator-expression");
+    divToHide.classList.toggle("hidden");
 }
 
 function evalExpression(expression) {
@@ -323,3 +330,5 @@ cols.forEach((col) => {
         console.log("CURRENT STACK:", stack);
     });
 });
+
+document.getElementById("toggleVisibility-btn").addEventListener("click", toggleVisibility);
