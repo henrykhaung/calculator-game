@@ -211,10 +211,7 @@ function doMath(stack) {
 }
 
 function addNumberToCurrentString(current_value, value) {
-    if (current_value.length === 9) {
-        displayErrorMessage(true, "Number exceeds more than 9 characters!");
-        return current_value;
-    } else if (current_value === "0") {
+    if (current_value === "0") {
         return "".concat(value);
     }
     return current_value.concat(value);
@@ -222,9 +219,14 @@ function addNumberToCurrentString(current_value, value) {
 
 function display(current_value) {
     if (current_value.length > 10) {
-        displayErrorMessage(true, "Value is too big! Does not fit in display.");
-        return;
+        current_value = Number(current_value);
+        current_value = current_value.toPrecision(9);
     }
+    // Remove unnecessary trailing zeros and potential trailing decimal point
+    if (current_value.includes('.')) {
+        current_value = parseFloat(current_value).toString();
+    }
+
     const resultDiv = document.querySelector(".result");
     resultDiv.textContent = current_value;
 }
@@ -283,11 +285,6 @@ cols.forEach((col) => {
                         current_value = current_value.concat(".");
                     }
                     break;
-                case "=":
-                    stack.push(parseFloat(current_value));
-                    stack.push(operator);
-                    current_value = doMath(stack);
-                    break;
                 default:
                     if (currentOperatorElement && currentOperatorElement !== col) {
                         currentOperatorElement.style["background-color"] = "#f5902a"; // Reset to original color
@@ -295,14 +292,14 @@ cols.forEach((col) => {
                     col.style["background-color"] = "#bf6e1d"; // Darker shade
                     currentOperatorElement = col;
 
-                    // handle operators
-                    if (math_operator !== null && math_operator !== operator) {
-                        if (math_operator !== operator) {
-                            stack.pop();
-                            stack.pop();
-                        }
+                    if (!math_operator) {
+                        math_operator = operator;
+                    } else if (math_operator !== operator) {
+                        stack[stack.length - 1] = operator;
+                        math_operator = operator;
+                        break;
                     }
-                    math_operator = operator;
+
                     stack.push(parseFloat(current_value));
                     stack.push(math_operator);
                     break;
@@ -312,6 +309,7 @@ cols.forEach((col) => {
                 current_value = "0";
                 math_operator = null;
             }
+
             let operand = col.textContent;
             current_value = addNumberToCurrentString(current_value, operand);
         }
@@ -329,6 +327,61 @@ cols.forEach((col) => {
         display(current_value);
         console.log("CURRENT STACK:", stack);
     });
+});
+
+// keyboard support
+document.addEventListener('keydown', function(event) {
+    const resultDiv = document.querySelector(".result");
+    
+    if (math_operator) {
+        current_value = "0";
+        math_operator = null;
+    }
+
+    // Allow numbers and basic operations
+    if ((event.key >= "0" && event.key <= "9") || event.key === '.') {
+        if (current_value === "0") {
+            current_value = event.key;
+        } else {
+            current_value += event.key;
+        }
+    } else if (event.key === 'Backspace') {
+        current_value = current_value.slice(0, -1) || "0";
+    } else if (event.key === 'Enter') {
+        if (stack.length === 0 || stack.length === 1) {
+            return;
+        }
+        let temp1 = stack[0].toString();
+        let temp2 = current_value === "0" ? temp1 : current_value;
+        let operator = stack[1]; 
+        if (stack[1] === "−") {
+            operator = "-";
+        } else if (stack[1] === "×") {
+            operator = "*";
+        } else if (stack[1] === "÷") {
+            operator = "/"
+        } 
+        temp1 = temp1.concat(operator);
+        temp1 = temp1.concat(temp2);
+        temp1 = eval(temp1);
+        stack[0] = temp1; 
+        current_value = temp1.toString();
+
+        math_operator = "=";
+
+        const cols = document.querySelectorAll(".col.operator.op");
+        cols.forEach((col) => {
+            if (col.textContent === "=") {
+                currentOperatorElement = col;
+                col.style["background-color"] = "#bf6e1d"; // Darker shade
+                currentOperatorElement = col;
+            } else {
+                col.style["background-color"] = "#f5902a"; // Reset to original color
+            }
+        });
+    }
+
+    display(current_value);
 });
 
 document.getElementById("toggleVisibility-btn").addEventListener("click", toggleVisibility);

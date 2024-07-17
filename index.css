@@ -112,10 +112,11 @@ ul.menu li {
 .container {
     width: 100%;
     max-width: 400px;
-    padding: 20px;
-    margin-top: 5rem;
+    padding: 30px;
+    margin-top: 3rem;
 
-    border: solid 2px peru;
+    border-radius: 20px;
+    background-color: black;
 }
 
 .grid {
@@ -126,13 +127,16 @@ ul.menu li {
 
 .result {
     grid-column: span 4;
-    background-color: #000;
+    background-color: #595555;
     color: #fff;
     font-size: 3rem;
     text-align: right;
     padding: 20px;
     margin-bottom: 10px;
     border-radius: 20px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .col {
@@ -162,3 +166,5 @@ ul.menu li {
 .col.op:hover {
     background-color: #ffb347;
 }
+
+
