@@ -1,9 +1,168 @@
+// menu logic
+
 document.querySelector(".menu li").addEventListener("mouseover", function () {
     document.getElementById("menu").textContent = "Close";
 });
 
 document.querySelector(".menu li").addEventListener("mouseout", function () {
     document.getElementById("menu").textContent = "Menu";
+});
+
+// eval logic
+
+let mode = 0; // if mode == 0, show visual
+
+function toggleVisibility() {
+    let newText = "";
+    if (mode) {
+        newText = "Want to just enter a math expression?";
+    } else {
+        newText = "Want to go into visual mode?";
+    }
+    mode = !mode;
+
+    const toggleDiv = document.getElementById("mode");
+    const button = document.getElementById("toggleVisibility-btn");
+    toggleDiv.innerHTML = `${newText} `;
+    toggleDiv.appendChild(button);
+
+    let divToHide = document.querySelector(".calculator-visual");
+    divToHide.classList.toggle("hidden");
+    divToHide = document.querySelector(".calculator-expression");
+    divToHide.classList.toggle("hidden");
+}
+
+document.getElementById("toggleVisibility-btn").addEventListener("click", toggleVisibility);
+
+function evalExpression(expression) {
+    function isDigit(char) {
+        return char >= "0" && char <= "9";
+    }
+
+    function isOperator(char) {
+        return char === "+" || char === "-" || char === "*" || char === "/";
+    }
+
+    function hasMatchingParentheses(expression) {
+        let balance = 0;
+        for (let char of expression) {
+            if (char === "(") balance++;
+            if (char === ")") balance--;
+            if (balance < 0) return false;
+        }
+        return balance === 0;
+    }
+
+    function shuntingYard(expression) {
+        let outputQueue = [];
+        let operatorStack = [];
+        const operators = {
+            "+": { precedence: 1 },
+            "-": { precedence: 1 },
+            "*": { precedence: 2 },
+            "/": { precedence: 2 },
+        };
+
+        let i = 0;
+        while (i < expression.length) {
+            let char = expression[i];
+            if (char === " ") {
+                i++;
+                continue;
+            }
+
+            if (isDigit(char)) {
+                // if number, make sure you grab the whole number ie 3.14
+                let num = "";
+                while (i < expression.length && (isDigit(expression[i]) || expression[i] === ".")) {
+                    num += expression[i];
+                    i++;
+                }
+                outputQueue.push(num);
+                continue;
+            }
+
+            if (isOperator(char)) {
+                while (
+                    operatorStack.length &&
+                    isOperator(operatorStack[operatorStack.length - 1]) &&
+                    operators[char].precedence <= operators[operatorStack[operatorStack.length - 1]].precedence
+                ) {
+                    outputQueue.push(operatorStack.pop());
+                }
+                operatorStack.push(char);
+            } else if (char === "(") {
+                operatorStack.push(char);
+            } else if (char === ")") {
+                while (operatorStack.length && operatorStack[operatorStack.length - 1] !== "(") {
+                    outputQueue.push(operatorStack.pop());
+                }
+                operatorStack.pop();
+            } else {
+                throw new Error(`Invalid token: ${char}`);
+            }
+            i++;
+        }
+
+        while (operatorStack.length) {
+            const op = operatorStack.pop();
+            if (op === "(" || op === ")") {
+                throw new Error("Mismatched parentheses");
+            }
+            outputQueue.push(op);
+        }
+
+        return outputQueue.join(" ");
+    }
+
+    if (!expression) {
+        return;
+    }
+    expression = expression.trim(); // trim white spaces
+    if (!hasMatchingParentheses) {
+        return;
+    }
+
+    // convert infix expression to postfix expression using Shunting Yard algorithm
+    let postfixexp = shuntingYard(expression);
+    postfixexp = postfixexp.split(" ");
+    let stack = [];
+    for (let char of postfixexp) {
+        if (isOperator(char)) {
+            let val1 = stack.pop();
+            let val2 = stack.pop();
+            switch (char) {
+                case "+":
+                    stack.push(val2 + val1);
+                    break;
+                case "-":
+                    stack.push(val2 - val1);
+                    break;
+                case "/":
+                    stack.push(val2 / val1);
+                    break;
+                case "*":
+                    stack.push(val2 * val1);
+                    break;
+                default:
+                    throw new Error(`Unknown operator: ${char}`);
+            }
+        } else {
+            stack.push(parseFloat(char));
+        }
+    }
+
+    if (stack.length !== 1) {
+        throw new Error("Invalid postfix expression");
+    }
+    return stack.pop();
+}
+
+const evaluateButton = document.getElementById("evaluate-btn");
+evaluateButton.addEventListener("click", function (event) {
+    event.preventDefault(); // prevent form submission to prevent refreshing page
+    const userExpression = document.getElementById("calculator-input").value;
+    const result = evalExpression(userExpression);
 });
 
 // visual calculator logic

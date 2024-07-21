@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>The Calculator Game</title>
+        <title>Calculators</title>
         <link rel="stylesheet" href="index.css" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -18,20 +18,26 @@
     </head>
     <body>
         <nav class="navbar">
-            <p id="title">The Calculator Game</p>
+            <p id="title">Calculator</p>
             <ul class="menu">
                 <li>
                     <p id="menu">Menu</p>
                     <img src="images/arrow-down.png" alt="down arrow icon" />
                     <ul class="submenu">
-                        <li><a class="links" href="index.html">Home</a></li>
-                        <li><a class="links" href="calculator/index.html">Actual Calculator</a></li>
-                        <li><a class="links" href="#">Github Repo</a></li>
-                        <li><a class="links" href="#">About</a></li>
+                        <li><a class="links" href="/calculator-game/index.html">Home</a></li>
+                        <li><a class="links" href="/calculator-game/restaurant-check/restaurant-check-calc.html">Restaurant Check Calculator</a></li>
                     </ul>
                 </li>
             </ul>
         </nav>
+
+        <div class="calculator-expression hidden">
+            <form>
+                <label for="calculator-input"> Enter your math expression: </label>
+                <input type="text" id="calculator-input" />
+                <input type="submit" id="evaluate-btn" value="Evaluate" />
+            </form>
+        </div>
 
         <div class="container calculator-visual">
             <div class="grid">
@@ -57,6 +63,10 @@
                 <div class="col operator op">=</div>
             </div>
         </div>
+
+        <div id="mode">
+            Want to just enter a math expression? Click <button id="toggleVisibility-btn">here</button>!
+        </div>
    </body>
-    <script src="index.js"></script>
+   <script src="index.js"></script>
 </html>

@@ -1,0 +1,232 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Poppins", sans-serif;
+    display: grid;
+    place-items: center;
+    background-color: #587df3;
+    z-index: -1;
+}
+
+/* Navbar */
+.navbar {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    margin-top: 6rem;
+}
+
+.navbar #title {
+    font-size: 2rem;
+    text-align: center;
+}
+
+.navbar #res-title {
+    font-size: 2rem;
+    font-weight: 500;
+    text-align: center;
+}
+
+.menu {
+    position: absolute;
+    right: 5rem;
+}
+
+/* Menu CSS */
+ul.menu {
+    color: #353b3f;
+    cursor: pointer;
+}
+
+ul.menu li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem;
+}
+
+.menu .submenu {
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    background-color: #353b3f;
+    border-radius: 1rem;
+    padding: 1rem;
+    transition: all 0.3s ease;
+}
+
+.menu .submenu li {
+    color: white;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.menu .submenu li:nth-child(1):hover {
+    background-color: #65d076;
+}
+
+.menu .submenu li:nth-child(2):hover {
+    background-color: #4b82ff;
+}
+
+.menu .submenu li:nth-child(3):hover {
+    background-color: #42b3db;
+}
+
+.menu .submenu li:nth-child(4):hover {
+    background-color: #fa7e91;
+}
+
+.menu .submenu li:nth-child(5):hover {
+    background-color: #a073ff;
+}
+
+.menu .links {
+    text-decoration: none;
+    color: inherit;
+}
+
+.menu img {
+    width: 1.1rem;
+    transition: transform 0.2s ease;
+}
+
+.menu:hover img {
+    transform: rotate(180deg);
+}
+
+.menu:hover .submenu {
+    top: 100%;
+    opacity: 1;
+    pointer-events: all;
+}
+
+/* receipt */
+
+.receipt {
+    margin-top: 8em;
+    padding-bottom: 6em;
+    font-family: 'Ubuntu Mono', monospace;
+}
+
+.receipt .title {
+    font-size: 18px;
+    text-align: center;
+    padding-top: 45px;
+}
+
+.receipt .deco {
+    padding-top: 25px;
+}
+
+.deco .container {
+    display: flex;
+    justify-content: space-between;
+    padding: 0;
+    padding-left: 25px;
+    padding-right: 25px;
+}
+
+.rectangle {
+    min-width: 390px;
+    min-height: 500px;
+    background-color: white;
+    position: relative;
+    margin-bottom: 20px;
+    box-shadow: 20px 20px 25px rgba(0, 0, 0, 0.5);
+}
+
+.triangle {
+    width: 0;
+    height: 0;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-top: 15px solid white;
+    position: absolute;
+    bottom: -15px;
+}
+
+.triangle-up {
+    width: 0;
+    height: 0;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-bottom: 15px solid white;
+    position: absolute;
+    top: -15px;
+}
+
+.costs-container {
+    padding-left: 25px;
+    padding-right: 25px;
+}
+
+.costs-container hr {
+    border: none;
+    padding-top: 25px;
+}
+
+.form-group {
+    display: flex;
+    justify-content: space-between;
+}
+
+.form-group input {
+    max-width: 23%;
+    font-family: 'Ubuntu Mono', monospace;
+    font-size: 16px;
+    text-align: right;
+    outline: none;
+    border: none;
+    border-bottom: solid 1px rgba(0, 0, 0, 0.5);
+}
+
+.button-wrapper {
+    display: flex;
+    justify-content: flex-end;
+}
+
+#add-item {
+    font-family: 'Ubuntu Mono', monospace;
+    background: none;
+    border: none;
+    font-size: 16px;
+    font-weight: 600;
+    font-style: italic;
+    cursor: pointer;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.result-container p {
+    text-align: center;
+    padding-bottom: 5px;
+}
+
+.result-container .text {
+    opacity: 0.5;
+}
+
+.total-items-cost-container, .your-tax-container, .your-tip-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.result-text {
+    padding-top: 25px;
+    padding-bottom: 45px;
+}
+
+#final-calculation {
+    opacity: 0.5;
+}

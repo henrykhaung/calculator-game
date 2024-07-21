@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Restaurant Check Calculator</title>
+        <link rel="stylesheet" href="index.css" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+            rel="stylesheet"
+        />
+        <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+        />
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <nav class="navbar">
+            <!-- <p id="title">Restaurant Check Calculator</p> -->
+            <ul class="menu">
+                <li>
+                    <p id="menu">Menu</p>
+                    <img src="../images/arrow-down.png" alt="down arrow icon" />
+                    <ul class="submenu">
+                        <li><a class="links" href="/calculator-game/index.html">Home</a></li>
+                        <li><a class="links" href="/calculator-game/restaurant-check/restaurant-check-calc.html">Restaurant Check Calculator</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="receipt">
+            <div class="rectangle">
+                <!-- top row triangles -->
+                <div class="triangle-up" style="left: 0px;"></div>
+                <div class="triangle-up" style="left: 30px;"></div>
+                <div class="triangle-up" style="left: 60px;"></div>
+                <div class="triangle-up" style="left: 90px;"></div>
+                <div class="triangle-up" style="left: 120px;"></div>
+                <div class="triangle-up" style="left: 150px;"></div>
+                <div class="triangle-up" style="left: 180px;"></div>
+                <div class="triangle-up" style="left: 210px;"></div>
+                <div class="triangle-up" style="left: 240px;"></div>
+                <div class="triangle-up" style="left: 270px;"></div>
+                <div class="triangle-up" style="left: 300px;"></div>
+                <div class="triangle-up" style="left: 330px;"></div>
+                <div class="triangle-up" style="left: 360px;"></div>
+                
+                <!-- bottom row triangles -->
+                <div class="triangle" style="left: 0px;"></div>
+                <div class="triangle" style="left: 30px;"></div>
+                <div class="triangle" style="left: 60px;"></div>
+                <div class="triangle" style="left: 90px;"></div>
+                <div class="triangle" style="left: 120px;"></div>
+                <div class="triangle" style="left: 150px;"></div>
+                <div class="triangle" style="left: 180px;"></div>
+                <div class="triangle" style="left: 210px;"></div>
+                <div class="triangle" style="left: 240px;"></div>
+                <div class="triangle" style="left: 270px;"></div>
+                <div class="triangle" style="left: 300px;"></div>
+                <div class="triangle" style="left: 330px;"></div>
+                <div class="triangle" style="left: 360px;"></div>
+
+                <div class="title">
+                    <p>Restaurant Check Calculator</p>
+                    <p>Gob Ears</p>
+                    <p>Berkeley, CA 94720</p>
+                </div>
+
+                <div class="deco">
+                    <div class="container">
+                        <span id="order-num">ORDER : 420</span>
+                        <span id="date">07/18/2024</span>
+                    </div>
+
+                    <div class="container">
+                        <span id="server">SERVER: Henry K</span>
+                        <span id="time">2:05PM</span>
+                    </div>
+                </div>
+                
+                <div class="costs-container">
+                    <form>
+                        <hr>
+
+                        <div class="form-group tax">
+                            <label for="tax">Tax</label>
+                            <input type="text" id="tax" placeholder="$13.48">
+                        </div>
+
+                        <div class="form-group tip">
+                            <label for="tip">Tip</label>
+                            <input type="text" id="tip" placeholder="$25.56">
+                        </div>
+
+                        <div class="form-group total">
+                            <label for="subtotal">Subtotal</label>
+                            <input type="text" id="subtotal" placeholder="$142.00">
+                        </div>
+
+                        <hr>
+                        
+                        <div id="items">
+                            <div class="form-group item-1">
+                                <label for="item-1">Item 1</label>
+                                <input type="text" id="item-1" placeholder="125/4">
+                            </div>
+                
+                            <div class="form-group item-2">
+                                <label for="item-2">Item 2</label>
+                                <input type="text" id="item-2" placeholder="17/2">
+                            </div>
+                        </div>
+
+                        <div class="button-wrapper">
+                            <button type="button" id="add-item">Add Item +</button>
+                        </div>
+
+                        <hr>
+
+                        <div class="result-container">
+                            <p>Result</p>
+
+                            <div class="total-items-cost-container">
+                                <span id="total-item-costs">Total Item Costs</span>
+                                <span class="text">$39.75</span>
+                            </div>
+
+                            <div class="your-tax-container">
+                                <span id="your-tax">Your Tax</span>
+                                <span class="text">$3.77</span>
+                            </div>
+
+                            <div class="your-tip-container">
+                                <span id="your-tip">Your Tip</span>
+                                <span class="text">$7.16</span>
+                            </div>
+                            
+                            <div class="result-text">
+                                <p>You have to pay back <span id="final-calculation">$50.68</span></p>
+                            </div>
+                        </div>                    
+                    </form>
+                </div>
+            </div>
+        </div>
+    </body>
+    <script src="index.js"></script>
+</html>
