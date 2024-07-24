@@ -19,3 +19,15 @@
 - With this calculator, I learned how to manipulate the DOM, how to use event listeners, and how to use form inputs.
 - DOM manipulation was handy when I wanted to grab an element and change its style and content. This was useful when validating user input of a number ie the subtotal from the receipt.
 - Event listeners were mostly used on the input element so that I can grab the value of what the user inputted as well as validate the input.
+
+## Problems/TODO
+
+- responsiveness
+- accessibility -> I blindly used rem/em without knowing what it does
+  - em refers to the font size of the parent element whereas rem refers to the font size of the root element (<html>). Both can be used to set width/height, padding, etc but they will still refer to font-size. Should use rem when setting font-size in order to respect user's wishes
+  - In summary, should use the following:
+  - font-size: rem
+  - width: % in combination with a max-width, ch
+  - height: if necessary to set, use a min-height
+  - padding/margin: rem for global consistency or em for element-relative scaling (ie em for buttons)
+  - media queries: em
